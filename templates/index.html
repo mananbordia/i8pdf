@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I8PDF - PDF tools that just work</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-face-angry"></i></div>
+      I8<span>PDF</span>
+    </a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>Shape your PDFs with precision</h1>
+      <p>A fast, free toolkit to merge, split, protect, convert and transform PDF files. No sign-ups, no uploads to the cloud — everything runs locally.</p>
+    </div>
+
+    <div class="tools-grid">
+      <a href="/tool/merge" class="tool-card">
+        <div class="tool-icon merge"><i class="fa-solid fa-layer-group"></i></div>
+        <div>
+          <h2 class="tool-title">Merge PDF</h2>
+          <p class="tool-desc">Combine multiple PDFs into a single document. Drag to reorder before merging.</p>
+        </div>
+      </a>
+
+      <a href="/tool/split" class="tool-card">
+        <div class="tool-icon split"><i class="fa-solid fa-scissors"></i></div>
+        <div>
+          <h2 class="tool-title">Split PDF</h2>
+          <p class="tool-desc">Extract every page into its own file. Download them all as a zip.</p>
+        </div>
+      </a>
+
+      <a href="/tool/protect" class="tool-card">
+        <div class="tool-icon protect"><i class="fa-solid fa-lock"></i></div>
+        <div>
+          <h2 class="tool-title">Protect PDF</h2>
+          <p class="tool-desc">Encrypt a PDF with a password to keep your data confidential.</p>
+        </div>
+      </a>
+
+      <a href="/tool/unlock" class="tool-card">
+        <div class="tool-icon unlock"><i class="fa-solid fa-lock-open"></i></div>
+        <div>
+          <h2 class="tool-title">Unlock PDF</h2>
+          <p class="tool-desc">Remove password protection from a PDF when you know the password.</p>
+        </div>
+      </a>
+
+      <a href="/tool/rotate" class="tool-card">
+        <div class="tool-icon rotate"><i class="fa-solid fa-rotate-right"></i></div>
+        <div>
+          <h2 class="tool-title">Rotate PDF</h2>
+          <p class="tool-desc">Rotate all pages of a PDF by 90, 180, or 270 degrees.</p>
+        </div>
+      </a>
+
+      <a href="/tool/img2pdf" class="tool-card">
+        <div class="tool-icon img2pdf"><i class="fa-solid fa-image"></i></div>
+        <div>
+          <h2 class="tool-title">Images to PDF</h2>
+          <p class="tool-desc">Convert JPG, PNG and other images to a PDF. Optionally fit each to an A4 page.</p>
+        </div>
+      </a>
+    </div>
+  </main>
+
+</body>
+</html>

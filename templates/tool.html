@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ tool.title }} - I8PDF</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-face-angry"></i></div>
+      I8<span>PDF</span>
+    </a>
+  </header>
+
+  <main>
+    <a href="/" class="back-link"><i class="fa-solid fa-arrow-left"></i> All tools</a>
+
+    <div class="tool-header">
+      <h1>{{ tool.title }}</h1>
+      <p>{{ tool.desc }}</p>
+    </div>
+
+    <!-- Dropzone -->
+    <div class="dropzone-container">
+      <div class="dropzone" id="dropzone"
+           data-accept="{{ tool.accept }}"
+           data-multiple="{{ 'true' if tool.multiple else 'false' }}"
+           data-endpoint="{{ tool.endpoint }}"
+           data-result-type="{{ tool.result_type }}"
+           data-tool-name="{{ tool_name }}">
+        <input type="file" id="fileInput"
+               accept="{{ tool.accept }}"
+               {% if tool.multiple %}multiple{% endif %}
+               style="display:none">
+        <div class="dropzone-content">
+          <i class="fa-solid {{ tool.icon }}"></i>
+          <p>Drag &amp; drop {% if tool.multiple %}files{% else %}a file{% endif %} here or <strong>browse</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings area -->
+    <div class="settings-area" id="settingsArea">
+      <div class="file-list" id="fileList"></div>
+
+      {% if tool.get('fields') %}
+      <div class="form-row">
+        {% for field in tool.fields %}
+          <div class="form-group">
+            <label for="field_{{ field.name }}">{{ field.label }}</label>
+            {% if field.type == 'select' %}
+              <select id="field_{{ field.name }}" class="form-select" data-field-name="{{ field.name }}">
+                {% for opt in field.options %}
+                  <option value="{{ opt.value }}">{{ opt.text }}</option>
+                {% endfor %}
+              </select>
+            {% else %}
+              <input id="field_{{ field.name }}" type="{{ field.type }}" class="form-input"
+                     data-field-name="{{ field.name }}"
+                     {% if field.get('required') %}required{% endif %}
+                     placeholder="{{ field.label }}">
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if tool.get('toggles') %}
+      <div class="options-row">
+        {% for toggle in tool.toggles %}
+          <div class="toggle-group">
+            <div class="toggle {% if toggle.get('default') %}active{% endif %}"
+                 id="toggle_{{ toggle.name }}"
+                 data-toggle-name="{{ toggle.name }}"></div>
+            <span class="toggle-label">{{ toggle.label }}</span>
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="actions-bar">
+        <div class="actions-left">
+          {% if tool.multiple %}
+            <button class="btn btn-secondary btn-sm" id="shuffleBtn" title="Shuffle order">
+              <i class="fa-solid fa-shuffle"></i> Shuffle
+            </button>
+          {% endif %}
+          <button class="btn btn-secondary btn-sm" id="clearBtn">
+            <i class="fa-solid fa-xmark"></i> Clear
+          </button>
+        </div>
+        <button class="btn" id="processBtn" disabled>
+          <i class="fa-solid fa-bolt"></i> Process
+        </button>
+      </div>
+    </div>
+
+    <p class="status-msg" id="statusMsg"></p>
+
+    <!-- PDF Preview -->
+    <div class="pdf-preview-section" id="pdfPreviewSection">
+      <div class="pdf-preview-header">
+        <h3>Preview</h3>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn btn-secondary btn-sm" id="backBtn">
+            <i class="fa-solid fa-pen"></i> Back to edit
+          </button>
+          <button class="btn btn-success btn-sm" id="downloadBtn">
+            <i class="fa-solid fa-download"></i> Download
+          </button>
+        </div>
+      </div>
+      <iframe class="pdf-viewer" id="pdfViewer"></iframe>
+    </div>
+
+    <!-- Processing overlay -->
+    <div class="processing-overlay" id="processingOverlay">
+      <div class="loader"></div>
+      <p class="processing-text">Processing...</p>
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
